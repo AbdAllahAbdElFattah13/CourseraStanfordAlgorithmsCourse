@@ -1,0 +1,12 @@
+YES
+++|OX
+XO|XX
+OX|OO
+XX|OX
+OO|OO
+OO|XX
+Time: 0 ms
+
+NO
+Time: 0 ms
+
