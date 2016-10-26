@@ -1,4 +1,4 @@
-
+#pragma once
 #ifndef ONLINE_JUDGE
 #define _CRT_SECURE_NO_DEPRECATE
 #endif
@@ -24,7 +24,7 @@ using namespace std;
 #define pll pair <ll, ll>
 #define vll vector <ll>
 #define vpll vector < pll >
-#define OO INT_MAX;
+#define OO INT_MAX
 
 #define read_fast ios_base::sync_with_stdio(false) , cin.tie(0)
 #define FOR(name, s, e) for(ll name = s; name < (ll)e; ++name)

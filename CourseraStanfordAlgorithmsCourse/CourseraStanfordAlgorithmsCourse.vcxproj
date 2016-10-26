@@ -78,12 +78,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConcreteClasses\CountInversions.cpp" />
+    <ClCompile Include="ConcreteClasses\GetClosestPairOfPoints.cpp" />
+    <ClCompile Include="ConcreteClasses\QuickSort.cpp" />
     <ClCompile Include="LectureImplementation.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="toSubmit.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="headers.h" />
+    <ClInclude Include="ConcreteClasses\headers.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="in.txt" />
