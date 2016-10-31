@@ -80,6 +80,8 @@
   <ItemGroup>
     <ClCompile Include="ConcreteClasses\CountInversions.cpp" />
     <ClCompile Include="ConcreteClasses\GetClosestPairOfPoints.cpp" />
+    <ClCompile Include="ConcreteClasses\GraphAlgorithms.cpp" />
+    <ClCompile Include="ConcreteClasses\GraphClass.cpp" />
     <ClCompile Include="ConcreteClasses\QuickSort.cpp" />
     <ClCompile Include="LectureImplementation.cpp" />
     <ClCompile Include="main.cpp" />

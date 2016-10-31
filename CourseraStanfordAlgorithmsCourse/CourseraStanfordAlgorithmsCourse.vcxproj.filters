@@ -33,6 +33,12 @@
     <ClCompile Include="LectureImplementation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ConcreteClasses\GraphClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConcreteClasses\GraphAlgorithms.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="in.txt">

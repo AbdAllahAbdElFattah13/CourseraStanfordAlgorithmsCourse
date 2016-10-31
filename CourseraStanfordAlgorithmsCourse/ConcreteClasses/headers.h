@@ -18,6 +18,7 @@
 #include <iomanip>
 #include <string.h>
 #include <cstring>
+#include <list>
 using namespace std;
 
 #define ll long long

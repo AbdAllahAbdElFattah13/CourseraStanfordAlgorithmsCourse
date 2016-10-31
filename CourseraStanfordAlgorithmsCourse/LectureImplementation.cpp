@@ -1,6 +1,8 @@
 #include "ConcreteClasses\CountInversions.cpp"
 #include "ConcreteClasses\GetClosestPairOfPoints.cpp"
 #include "ConcreteClasses\QuickSort.cpp"
+#include "ConcreteClasses\GraphClass.cpp"
+#include "ConcreteClasses\GraphAlgorithms.cpp"
 
 
 class lecture_implementations
@@ -8,19 +10,21 @@ class lecture_implementations
 	CountInversions *countInversionsObj;
 	GetClosestPairOfPoints *getClosestPairOfPointsObj;
 	QuickSort *quickSortObj;
-
+	GraphAlgorithrms *graohAlgoObj;
 public:
 	lecture_implementations()
 	{
 		this->countInversionsObj = new CountInversions();
 		this->getClosestPairOfPointsObj = new GetClosestPairOfPoints();
 		this->quickSortObj = new QuickSort();
+		this->graohAlgoObj = new GraphAlgorithrms();
 	}
 	~lecture_implementations()
 	{
 		delete this->countInversionsObj;
 		delete this->getClosestPairOfPointsObj;
 		delete this->quickSortObj;
+		delete this->graohAlgoObj;
 	}
 
 
@@ -44,4 +48,8 @@ public:
 		return quickSortObj->quickSort(numbers, start, end, way);
 	}
 
+	ll minCut(Graph g)
+	{
+		return this->graohAlgoObj->contractionAlgorithm(g, (ll)(g.n * g.n * log(g.n)));
+	}
 };
