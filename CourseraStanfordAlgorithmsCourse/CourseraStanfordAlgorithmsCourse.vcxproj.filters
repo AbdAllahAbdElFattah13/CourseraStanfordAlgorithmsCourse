@@ -46,6 +46,7 @@
     </Text>
     <Text Include="out.txt" />
     <Text Include="in2.txt" />
+    <Text Include="WA.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConcreteClasses\headers.h">

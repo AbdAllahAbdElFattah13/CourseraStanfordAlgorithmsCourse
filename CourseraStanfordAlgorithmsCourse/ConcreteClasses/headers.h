@@ -19,6 +19,7 @@
 #include <string.h>
 #include <cstring>
 #include <list>
+#include <functional>
 using namespace std;
 
 #define ll long long

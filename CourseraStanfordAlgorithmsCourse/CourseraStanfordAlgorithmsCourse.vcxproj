@@ -94,6 +94,7 @@
     <Text Include="in.txt" />
     <Text Include="in2.txt" />
     <Text Include="out.txt" />
+    <Text Include="WA.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

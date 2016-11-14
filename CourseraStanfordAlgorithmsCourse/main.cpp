@@ -1,36 +1,61 @@
 #include "LectureImplementation.cpp"
 
+void solve(ll n, vpll input)
+{
+	cout << "solving with n = " << n << endl;
+	Graph g(n, true), gRrv(n, true);
+	for_auto(p, input)
+	{
+		g.addEdge(p.first, p.second);
+		gRrv.addEdge(p.second, p.first);
+	}
+	GraphAlgorithrms ga;
+	multiset <ll, greater<ll> > allSCCLen = ga.kosarajuAlgorithmToGetSCC(g, gRrv);
+
+	cout << "#SCC: " << allSCCLen.size() << endl;
+	string out = "";
+	for_auto(i, allSCCLen)
+	{
+		out += to_string(i) + ',';
+	}
+	out.pop_back();
+
+	cout << out << endl << endl;
+
+}
+
 int main()
 {
 
 #ifndef ONLINE_JUDGE
-	freopen("in.txt", "r", stdin);
+	freopen("in2.txt", "r", stdin);
 	//freopen("out.txt", "w", stdout);
 #endif
 	read_fast;
 
-	lecture_implementations li;
-	ll n, _case = 0;
-	while (cin >> n)
+	ll v, u, n = -OO, before;
+	vpll input;
+
+	while (cin >> u >> v)
 	{
-		Graph g(n, true);
-		FOR(i, 0, n)
+		lecture_implementations li;
+		if (u == v && u == -1)
 		{
-			ll v, u;
-			cin >> v;
-			while (cin >> u)
-			{
-				if (u == -1) break;
-				g.addEdge(v - 1, u - 1);
-			}
+			cout << "done with reading the input, calling the function" << endl;
+			before = (int)(clock() * 1000. / CLOCKS_PER_SEC);
+			solve(n, input);
+			input.clear();
+			n = -OO;
+			continue;
 		}
-
-		ll minCut = li.minCut(g);
-
-		cout << "minCut: " << minCut << ", at case: " << ++_case << endl;
-#ifndef ONLINE_JUDGE
-		cout << "Time: " << (int)(clock() * 1000. / CLOCKS_PER_SEC) << " ms\n\n";
-#endif
+		if (u == v) continue;
+		n = max(n, max(u, v));
+		--u; --v;
+		input.push_back(make_pair(u, v));
 	}
+
+#ifndef ONLINE_JUDGE
+		cout << "Time: " << (int)(clock() * 1000. / CLOCKS_PER_SEC) - before << " ms\n\n";
+#endif
 	return 0;
 }
