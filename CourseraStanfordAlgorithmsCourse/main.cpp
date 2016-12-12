@@ -1,28 +1,49 @@
 #include "LectureImplementation.cpp"
 
-void solve(ll n, vpll input)
+//10k, 100k, 400k, OO				10k -> passed
+ll cases[4] = { 10000, 100000, 400000, OO };
+ll caseIndes = 2;
+vpll read_input(ll &n)
 {
-	cout << "solving with n = " << n << endl;
-	Graph g(n, true), gRrv(n, true);
-	for_auto(p, input)
+	vpll ret;
+	ll u, v;
+	while (cin >> u >> v)
 	{
-		g.addEdge(p.first, p.second);
-		gRrv.addEdge(p.second, p.first);
+		if (u >= cases[caseIndes] || v >= cases[caseIndes]) continue;
+		if (u == v && u == -1) return ret;
+		ret.push_back(make_pair(u, v));
+		n = max(n, max(u, v));
 	}
-	GraphAlgorithrms ga;
-	multiset <ll, greater<ll> > allSCCLen = ga.kosarajuAlgorithmToGetSCC(g, gRrv);
-
-	cout << "#SCC: " << allSCCLen.size() << endl;
-	string out = "";
-	for_auto(i, allSCCLen)
-	{
-		out += to_string(i) + ',';
-	}
-	out.pop_back();
-
-	cout << out << endl << endl;
-
 }
+
+void solve(ll n, vpll input, ll limit)
+{
+	//cout << "starting graph construaction" << endl;
+	Graph g(min(n, limit), true);
+	Graph gRev(min(n, limit), true);
+	for_auto(i, input)
+	{
+		//if (!(i.first > limit || i.second > limit))
+			g.addEdge(i.first - 1, i.second - 1);
+			gRev.addEdge(i.second - 1, i.first - 1);
+	}
+	//cout << "done graph, stating the SCC" << endl;
+
+	GraphAlgorithrms ga;
+	auto output = ga.kosarajuAlgorithmToGetSCC(g, gRev);
+
+	string out = "";
+	ll done = 0;
+	for_auto(i, output)
+	{
+		if (done > 6) break;
+		++done;
+		cout << i << endl;
+		out += (to_string(i) + ",");
+	}
+	cout << out << endl;
+}
+
 
 int main()
 {
@@ -33,29 +54,22 @@ int main()
 #endif
 	read_fast;
 
-	ll v, u, n = -OO, before;
-	vpll input;
-
-	while (cin >> u >> v)
+	while (true)
 	{
-		lecture_implementations li;
-		if (u == v && u == -1)
-		{
-			cout << "done with reading the input, calling the function" << endl;
-			before = (int)(clock() * 1000. / CLOCKS_PER_SEC);
-			solve(n, input);
-			input.clear();
-			n = -OO;
-			continue;
-		}
-		if (u == v) continue;
-		n = max(n, max(u, v));
-		--u; --v;
-		input.push_back(make_pair(u, v));
-	}
+		ll n = -1;
+		cout << "starting reading the input" << endl;
+		vpll input = read_input(n);
+		cout << "done reading the input" << endl;
+		if (n == -1) break;
+		ll before = (int)(clock() * 1000. / CLOCKS_PER_SEC);
+		solve(n, input, cases[caseIndes]);
 
 #ifndef ONLINE_JUDGE
 		cout << "Time: " << (int)(clock() * 1000. / CLOCKS_PER_SEC) - before << " ms\n\n";
+		before = (int)(clock() * 1000. / CLOCKS_PER_SEC);
 #endif
+	}
+
+
 	return 0;
 }

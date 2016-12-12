@@ -39,27 +39,20 @@ public:
 	bool isDirected;
 	list <Edge> edges;
 	vector < vector <GraphNode> > adjacencyList;
-	vector <bool> visited;
-	vector <ll> parent;
+	//vector <ll> parent;
 
 	Graph(ll _n, bool directed = false) : n(_n), isDirected(directed)
 	{
+		//cout << "called" << endl;
 		this->adjacencyList.resize(_n);
-		resetVisited(_n);
-		resetParent(_n);
+		//resetParent(_n);
 	}
 
-	void resetVisited(ll n)
-	{
-		this->visited.clear();
-		this->visited.resize(n);
-	}
-	
-	void resetParent(ll n)
-	{
-		this->parent.clear();
-		this->parent.resize(n);
-	}
+	//void resetParent(ll n)
+	//{
+	//	this->parent.clear();
+	//	this->parent.resize(n);
+	//}
 
 	void addEdge(ll start, ll end, ll cost = -1)
 	{
@@ -106,6 +99,82 @@ public:
 		return;
 	}
 
+	ll DFSUtill(ll root, bool *vistied)
+	{
+		ll SCCCount = 0;
+		stack <ll> st;
+		st.push(root);
+		while (!st.empty())
+		{
+			ll cur = st.top();
+			st.pop();
+
+			if (!vistied[cur])
+			{
+				vistied[cur] = true;
+				++SCCCount;
+			}
+
+			for (ll i = ((ll)this->adjacencyList[cur].size()) - 1; i > -1; --i)
+			{
+				ll child = this->adjacencyList[cur][i].to;
+				if (!vistied[child])
+					st.push(child);
+			}
+		}
+		return SCCCount;
+	}
+
+	//void fillOrder(ll root, bool *visited, stack<ll> &order)
+	//{
+	//	visited[root] = true;
+
+	//	for (auto child : adjacencyList[root])
+	//	{
+	//		if (!visited[child.to])
+	//		{
+	//			fillOrder(child.to, visited, order);
+	//		}
+	//	}
+
+	//	order.push(root);
+	//}
+	void fillOrder(ll root, bool *visited, stack<ll> &order)
+	{
+		stack <ll> st;
+		st.push(root);
+		map < ll, ll> finishTime;
+		bool *finishingTimeVisited = new bool[this->n + 5]();
+
+		while (!st.empty())
+		{
+			ll cur = st.top();
+			st.pop();
+
+			if (!visited[cur])
+			{
+				visited[cur] = true;
+				st.push(cur);
+				for (ll i = ((ll)this->adjacencyList[cur].size()) - 1; i > -1; --i)
+				{
+					ll child = this->adjacencyList[cur][i].to;
+					if (!visited[child])
+						st.push(child);
+				}
+			}
+			else
+			{
+				//st.pop();
+				//order.push(cur);
+				if (!finishingTimeVisited[cur])
+				{
+					finishingTimeVisited[cur] = 1;
+					order.push(cur);
+				}
+			}
+		}
+		delete finishingTimeVisited;
+	}
 	~Graph()
 	{
 
