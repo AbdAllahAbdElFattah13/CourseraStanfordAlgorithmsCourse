@@ -48,12 +48,6 @@ public:
 		//resetParent(_n);
 	}
 
-	//void resetParent(ll n)
-	//{
-	//	this->parent.clear();
-	//	this->parent.resize(n);
-	//}
-
 	void addEdge(ll start, ll end, ll cost = -1)
 	{
 		//adding to adj list
@@ -124,26 +118,11 @@ public:
 		}
 		return SCCCount;
 	}
-
-	//void fillOrder(ll root, bool *visited, stack<ll> &order)
-	//{
-	//	visited[root] = true;
-
-	//	for (auto child : adjacencyList[root])
-	//	{
-	//		if (!visited[child.to])
-	//		{
-	//			fillOrder(child.to, visited, order);
-	//		}
-	//	}
-
-	//	order.push(root);
-	//}
+	
 	void fillOrder(ll root, bool *visited, stack<ll> &order)
 	{
 		stack <ll> st;
 		st.push(root);
-		map < ll, ll> finishTime;
 		bool *finishingTimeVisited = new bool[this->n + 5]();
 
 		while (!st.empty())
@@ -175,6 +154,44 @@ public:
 		}
 		delete finishingTimeVisited;
 	}
+	
+	vll shortestPathUsingDijkstra(ll s)
+	{
+		bool *visited = new bool[this->n + 5]();
+		vll dist(n, OO);
+
+		//weight, v "remember it's a max heap"
+		priority_queue < pll, vpll, greater <pll> > pq; 
+
+		pq.push(make_pair(0, s));
+		dist[s] = 0;
+
+		while (!pq.empty())
+		{
+			pll curNode = pq.top();
+			pq.pop();
+
+			ll curV = curNode.second,
+				minDistanceSoFar = curNode.first;
+
+			visited[curV] = 1;
+			//dist[curV] = curDistance;
+
+			for (auto child : this->adjacencyList[curV])
+			{
+				if (!visited[child.to])
+				{
+					if (minDistanceSoFar + child.cost < dist[child.to])
+					{
+						dist[child.to] = dist[curV] + child.cost;
+						pq.push(make_pair(dist[child.to], child.to));
+					}
+				}
+			}
+		}
+		return dist;
+	}
+
 	~Graph()
 	{
 
